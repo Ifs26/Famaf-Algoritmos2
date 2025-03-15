@@ -43,33 +43,26 @@ bool has_free_cell(char board[3][3]){
 
 char get_winner(char board[3][3]){
     char winner;
+    winner = '-';
     int it = 0;
     while (it < 3){
         //verifica ganador por completar fila 
         if (((board[it][0] == board[it][1]) && (board[it][0] == board[it][2])) && (board[it][0]!='-')){
-            printf("chequeo 1");
             winner = board[it][0]; 
             //siguiente if verifica ganador por completar columna
         }
         if (((board[0][it]==board[1][it])&&(board[0][it]==board[2][it])) && (board[0][it]!='-')){
-            printf("chequeo 2");
             winner = board[0][it]; 
         }
         it = it+1;
     }
     if ((((board[0][0]==board[1][1])&&(board[1][1]==board[2][2])) || ((board[0][2]==board[1][1])&&(board[1][1]==board[2][0]))) && (board[1][1]!='-')) {
-        printf("chequeo 3");
         winner = board[1][1];
     }   
-    
-    if (has_free_cell(board)){
-        printf("chequeo 4");
-        winner = '-';  
-    }
     return winner;
 }
 
 int main(){
-    printf("\n %c \n",get_winner(board));
+    printf("\n %c \n",get_winner(board1));
     return 0;
 }
