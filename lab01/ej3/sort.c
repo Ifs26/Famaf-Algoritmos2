@@ -10,7 +10,7 @@
 
 static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     /* Needs implementation */
-
+    
     /* PRECONDITION: 
        0 <= izq < der < length of the array
 
@@ -23,17 +23,13 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     unsigned int pivot = izq;
     unsigned int i = izq+1;
     unsigned int j = der;
-    while(i)
 
-
-
-    while (i<=j){
-        printf("particion! %d\n", i);
-        if (a[i] <= a[pivot]){
+    while (i<=j){//i y j se van a ir a acercando desde los bordes
+        if (goes_before(a[i],a[pivot])){ //a[i] <= a[pivot]
             i = i+1;
-        } else if (a[j] >= a[pivot]){
+        } else if (goes_before(a[pivot],a[j])){ //a[j] >= a[pivot]    return x <= y
             j = j-1;
-        } else if (a[i]>a[pivot] && a[j]<a[pivot]){
+        } else if (!(goes_before(a[i],a[pivot])) && !(goes_before(a[pivot],a[j]))){
             swap(a,i,j);
         }
     }
