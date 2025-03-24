@@ -7,10 +7,22 @@
 #include "sort_helpers.h"
 #include "sort.h"
 
+#include <stdio.h>
+
+void print_array(int a[], unsigned int length) {
+    printf("[");
+    for (unsigned int i = 0; i < length; i++) {
+        printf("%d", a[i]);
+        if (i < length - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+}
 
 static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     /* Needs implementation */
-    
+
     /* PRECONDITION: 
        0 <= izq < der < length of the array
 
@@ -19,24 +31,63 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
      - elements in a[izq,pivot) all 'go_before' (according to function goes_before) a[pivot]
      - a[pivot] 'goes_before' all the elements in a(pivot,der]
     */
+    unsigned int pivot = izq; //Osea el primer elemento de la lista
+    unsigned int i = izq+1; //Tiene que detectar menores al pivot
+    unsigned int j = der; //Tiene que detectar mayores al pivot
 
-    unsigned int pivot = izq;
-    unsigned int i = izq+1;
-    unsigned int j = der;
+    while (i<=j){
 
-    while (i<=j){//i y j se van a ir a acercando desde los bordes
-        if (goes_before(a[i],a[pivot])){ //a[i] <= a[pivot]
-            i = i+1;
-        } else if (goes_before(a[pivot],a[j])){ //a[j] >= a[pivot]    return x <= y
-            j = j-1;
-        } else if (!(goes_before(a[i],a[pivot])) && !(goes_before(a[pivot],a[j]))){
+        printf("\n|| i=%d",i);
+        printf(" y j=%d",j);
+        printf("|| pivot: %d en lugar %d",a[pivot], pivot);
+
+        i = (a[i] <= a[pivot]) ? i+1 : i ;
+        j = (a[j] >= a[pivot]) ? j-1 : j ;
+
+        if ((a[i] > a[pivot]) && (a[j] < a[pivot])){
+            printf("\nSWAP! por CASO i %d > %d y ademas CASO j %d < %d\n",a[i],a[pivot],a[j],a[pivot]);
             swap(a,i,j);
         }
+
+        
     }
+
+    
+    printf("\nUltimo j de iteracion: %d\n",j);
     swap(a,pivot,j);
     pivot = j;
+
     return pivot;
-   
+
+    /*
+    while (i<=j){//i y j se van a ir a acercando desde los bordes
+
+        printf("\n|| i=%d",i);
+        printf(" y j=%d",j);
+        printf("|| pivot: %d en lugar %d",a[pivot], pivot);
+
+        if ((a[i] > a[pivot]) && (a[j] < a[pivot])){
+            printf("\nSWAP! por %d > %d y ademas %d < %d",a[i],a[pivot],a[j],a[pivot]);
+            swap(a,i,j);
+        }
+
+        i = (a[i] <= a[pivot]) ? i+1 : i ;
+        j = (a[j] >= a[pivot]) ? j-1 : j ;
+        
+        
+
+
+        
+        printf("\n|| i=%d",i);
+        printf(" y j=%d",j);
+        printf("|| pivot: %d en lugar %d",a[pivot], pivot);
+        //assert(i<=j);
+    }
+    printf("\n/------");
+    swap(a,pivot,j);
+    pivot = j; 
+    return pivot;
+   */
 }
 
 static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {

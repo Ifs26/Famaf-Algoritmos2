@@ -62,10 +62,11 @@ int main(int argc, char *argv[]) {
     /* show the ordered array in the screen */
     array_dump(array, length);
 
+    printf("-----------------------------\n");
     //ACA ESTOY IMPLEMENTANDO EL QUICK SORT
     quick_sort(array,length);
 
-    printf("-----------------------------\n");
+    
     /* show the ordered array in the screen */
     array_dump(array, length);
 
