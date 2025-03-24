@@ -19,10 +19,38 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
      - elements in a[izq,pivot) all 'go_before' (according to function goes_before) a[pivot]
      - a[pivot] 'goes_before' all the elements in a(pivot,der]
     */
+
+    unsigned int pivot = izq;
+    unsigned int i = izq+1;
+    unsigned int j = der;
+    while(i)
+
+
+
+    while (i<=j){
+        printf("particion! %d\n", i);
+        if (a[i] <= a[pivot]){
+            i = i+1;
+        } else if (a[j] >= a[pivot]){
+            j = j-1;
+        } else if (a[i]>a[pivot] && a[j]<a[pivot]){
+            swap(a,i,j);
+        }
+    }
+    swap(a,pivot,j);
+    pivot = j;
+    return pivot;
+   
 }
 
 static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {
     /* copiá acá la implementación que hiciste en el ejercicio 3 */
+    unsigned int ppiv; 
+    if (der > izq){
+        ppiv = partition(a,izq,der);
+        quick_sort_rec(a,izq,ppiv-1);
+        quick_sort_rec(a,ppiv+1,der);
+    }
 
 }
 
