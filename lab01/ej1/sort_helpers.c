@@ -22,4 +22,9 @@ bool array_is_sorted(int array[], unsigned int length) {
         i++;
     }
     return (i >= length);
+    /*
+    Este algoritmo verifica que un arreglo esta ordenado, para ello
+    avanza de izquierda a derecha desde el segundo elemento y verifica 
+    que el elemento anterior es menor.
+    */
 }
