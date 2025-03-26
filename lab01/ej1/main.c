@@ -8,7 +8,7 @@
 #include "sort_helpers.h"
 #include "sort.h"
 
-/* Maximum allowed length of the array */
+/* Maximum allowed length of the array */ //TEST
 static const unsigned int MAX_SIZE = 100000u;
 
 void print_help(char *program_name) {
