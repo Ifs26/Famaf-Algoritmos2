@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+// cd /mnt/c/Users/Tecno/Desktop/FAMAF/2do_año/AyED2/Famaf-Algoritmos2/lab01/ej1$ gcc
 /* Then, this project's includes, alphabetically ordered */
 #include "array_helpers.h"
 #include "sort_helpers.h"
