@@ -13,10 +13,49 @@
  * @param length Largo del arreglo.
  */
 bool tiene_cima(int a[], int length) {
+    //para encontrar el lugar puedo sumar 1
+    bool sube;
+    bool baja;
 
-    // COMPLETAR!!
+    bool cima_alcanzada = false;
 
-    return false;
+    if (length<2){
+        cima_alcanzada = true;
+    } else {
+
+        if (a[0]<=a[1]){
+            sube = true;
+            baja = false;
+        } else {
+            baja = true;
+            sube = false;
+        }
+    
+        for (int i=1; i<length;i++){
+    
+            //Caso cuando arranca subiendo
+            if ((a[i-1] < a[i]) && sube){
+                sube = true;  
+            } else if ((a[i-1] > a[i]) && sube){
+                cima_alcanzada = true;
+                sube = false;
+                baja = true;
+            }
+    
+            //caso cuando arranca bajando
+            if(baja && (a[i-1] < a[i])){
+                baja = false;
+                sube = true;
+            }
+            
+        }
+    }
+    /* Consultar nmuero de picos ////  si tiene un elemento es un pico trivial*/
+    //Verifica si el arreglo comienza subiendo o bajando
+
+    //ESTO SIRVE SOLO SI EL ARREGLO DOS ELEMENTOS O MAS
+    
+    return cima_alcanzada;
 }
 
 /**
@@ -34,6 +73,37 @@ bool tiene_cima(int a[], int length) {
 int cima(int a[], int length) {
 
     // COMPLETAR!!
+    bool sube;
+    bool baja;
 
-    return 0;
+    int res = 0;
+
+    //Verifica si el arreglo comienza subiendo o bajando
+    if (a[0]<=a[1]){
+        sube = true;
+        baja = false;
+    } else {
+        baja = true;
+        sube = false;
+    }
+
+    for (int i=1; i<length;i++){
+
+        //Caso cuando arranca subiendo
+        if ((a[i-1] < a[i]) && sube){
+            sube = true;  
+        } else if ((a[i-1] > a[i]) && sube){
+            res = i;
+            sube = false;
+            baja = true;
+        }
+
+        //caso cuando arranca bajando
+        if(baja && (a[i-1] < a[i])){
+            baja = false;
+            sube = true;
+        }
+        
+    }
+    return res;
 }

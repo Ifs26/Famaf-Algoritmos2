@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 #include "k_esimo.h"
 #include <assert.h>
 
