@@ -44,7 +44,7 @@ int k_esimo(int a[], int length, int k) {
     while (ppiv!=k)
     {
         /*Si el lugar que me interesa es menor 
-            o igual al lugar definitivo que encontre*/
+            o igual al lugar definitivo que encontre */
         if(goes_before(k,ppiv)){
             /*busco la ubi definitiva del primer elemento del segmento izq*/
             ppiv = partition(a, izq, ppiv-1);
