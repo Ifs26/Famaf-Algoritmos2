@@ -12,7 +12,10 @@ static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {
     unsigned int ppiv; 
     if (der > izq){
         ppiv = partition(a,izq,der);
-        quick_sort_rec(a,izq,ppiv-1);
+        /*if (ppiv > 0){
+            quick_sort_rec(a,izq,ppiv-1);
+        }*/
+        quick_sort_rec(a,izq,ppiv > 0 ? ppiv-1 :0 );
         quick_sort_rec(a,ppiv+1,der);
     }
     /* no implementes partition, ya está implementado en sort_helpers.o

@@ -77,6 +77,12 @@ int main(int argc, char *argv[]) {
        copiar el arreglo original, resetear los contadores y setear el tiempo.
     */
     /* needs implementation */
+    insertion_sort(copy, length);
+
+    /* show statistics for selection_sort */
+    printf("statistics for selection_sort\n");
+    printf("time elapsed=%g,    comparisons: %10u,    swaps: %10u\n", calculate_elapsed_time(), comparisons_number(), swaps_number());
+
 
 
     /* all the same for quick_sort */
@@ -86,6 +92,12 @@ int main(int argc, char *argv[]) {
        copiar el arreglo original, resetear los contadores y setear el tiempo.
     */
     /* needs implementation */
+    quick_sort(copy, length);
+
+    /* show statistics for selection_sort */
+    printf("statistics for selection_sort\n");
+    printf("time elapsed=%g,    comparisons: %10u,    swaps: %10u\n", calculate_elapsed_time(), comparisons_number(), swaps_number());
+
 
 
 

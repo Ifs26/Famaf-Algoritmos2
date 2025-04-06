@@ -16,6 +16,7 @@ static void insert(int a[], unsigned int i, unsigned int length) {
         Había pensado agregar la segunda parte de la guarda como un if, 
         pero de esta manera el programa termina antes.
         */
+        array_dump(a,length);
         swap(a,j-1,j);
         j = j-1;
     } 
@@ -31,12 +32,12 @@ static void insert(int a[], unsigned int i, unsigned int length) {
 }
 
 void insertion_sort(int a[], unsigned int length) {
-    /*
+    
     for (unsigned int i = 1; i < length; ++i) {
         insert(a, i, length);
         assert(array_is_sorted(a, i));
     }
-    */
+    
 
     /*
     El algoritmo consiste en verificar de izquierda a derecha una lista y,
@@ -46,12 +47,12 @@ void insertion_sort(int a[], unsigned int length) {
     si su elemento de la izquierda es menor, hasta llegar al final.
     */
 
+    /*
     unsigned int i = 1;
-    while (i < length){ /*Poner array_is_sorted(a,length) es pesima idea, en cada ciclo 
-                        chequearia todo el arreglo*/
+    while (i < length){ 
         insert(a, i, length);
         assert(array_is_sorted(a, i));
         i = i+1;
-    }
+    }  */
     
 }
