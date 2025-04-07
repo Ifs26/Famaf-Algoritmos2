@@ -20,7 +20,32 @@ void print_array(int a[], unsigned int length) {
     printf("]\n");
 }
 
-static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
+static unsigned int partition(int a[], unsigned int lft, unsigned int rgt) {
+    print_array(a,rgt+1);
+
+    unsigned int piv_izq = lft;
+    unsigned int i = lft+1;
+    unsigned int j = rgt; 
+
+    int pivot = a[lft];
+    while (i<=j){
+        if (a[i]<pivot){
+            swap(a,i,piv_izq);
+            piv_izq = piv_izq+1;
+            i = i+1;
+        } else if (a[i] == pivot){
+            i=i+1;
+        } else {
+            swap(a,i,j);
+            j=j-1;
+        }
+    }
+    print_array(a,rgt+1);
+
+    return j;
+}
+/*
+static unsigned int partition2(int a[], unsigned int izq, unsigned int der) {
     print_array(a,der+1);
     unsigned int pivot = izq;
     unsigned int k = izq+1;
@@ -94,11 +119,11 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     //pivot izquierdo = pivot - (k-1)
     return pivot;
 }
-
+*/
 
 int main() {
 
-    int a[] = {1,7,7,7,10,11,6,60,3,80,7,7,777,2};
+    int a[] = {7,7,7,7,10,11,6,60,3,80,7,7,777,2};
     unsigned int pivot1 = partition(a,0,13);
     printf("\n%d\n",pivot1);
 
