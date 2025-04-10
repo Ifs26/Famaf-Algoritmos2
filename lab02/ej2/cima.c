@@ -12,49 +12,47 @@
  * @param a Arreglo.
  * @param length Largo del arreglo.
  */
-bool tiene_cima(int a[], int length) {
-    //para encontrar el lugar puedo sumar 1
-    bool sube;
-    bool baja;
 
-    bool cima_alcanzada = false;
+bool tiene_cima(int a[], int length){
 
-    if (length<2){
-        cima_alcanzada = true;
-    } else {
+    bool estric_crec = true;
+    bool estric_decrec = false;
+    bool cima_alcanzada = true;
 
-        if (a[0]<=a[1]){
-            sube = true;
-            baja = false;
-        } else {
-            baja = true;
-            sube = false;
+    
+    if (length >= 2){
+        int it = 0;
+
+        if (a[it]>a[it+1]){ //Si el arreglo comienza bajando al cima estaria al inicio
+            estric_crec = false;
+            estric_decrec = true;
+            it = it+1;
+        } else if (a[it]>a[it+1]){//Si el arreglo arranca con repetidos no hay cima
+            estric_crec = false;
+            estric_decrec = false;
+            cima_alcanzada = false;
         }
-    
-        for (int i=1; i<length;i++){
-    
-            //Caso cuando arranca subiendo
-            if ((a[i-1] < a[i]) && sube){
-                sube = true;  
-            } else if ((a[i-1] > a[i]) && sube){
-                cima_alcanzada = true;
-                sube = false;
-                baja = true;
+
+        while (estric_crec && it<length-1){
+            if (a[it]>a[it+1]){ //posible cima y debe entrar al sig bucle
+                estric_crec = false;
+                estric_decrec = true;
+
+            } else if (a[it] == a[it+1]){ //No hay cima y no debe entrar al sig bucle
+                estric_crec = false; 
+                cima_alcanzada = false;
             }
-    
-            //caso cuando arranca bajando
-            if(baja && (a[i-1] < a[i])){
-                baja = false;
-                sube = true;
+            it= it+1;
+        }
+        while (estric_decrec && it<length-1){ //desde cima debe solo bajar
+            if (a[it]<=a[it+1]){
+                estric_decrec = false;
+                cima_alcanzada = false;
             }
-            
+            it = it+1;
         }
     }
-    /* Consultar nmuero de picos ////  si tiene un elemento es un pico trivial*/
-    //Verifica si el arreglo comienza subiendo o bajando
 
-    //ESTO SIRVE SOLO SI EL ARREGLO DOS ELEMENTOS O MAS
-    
     return cima_alcanzada;
 }
 
@@ -71,39 +69,27 @@ bool tiene_cima(int a[], int length) {
  * @param length Largo del arreglo.
  */
 int cima(int a[], int length) {
+    /*Ahora solo tengo que frenar al iterador*/
+    bool estric_crec = true;
 
-    // COMPLETAR!!
-    bool sube;
-    bool baja;
-
-    int res = 0;
-
-    //Verifica si el arreglo comienza subiendo o bajando
-    if (a[0]<=a[1]){
-        sube = true;
-        baja = false;
-    } else {
-        baja = true;
-        sube = false;
-    }
-
-    for (int i=1; i<length;i++){
-
-        //Caso cuando arranca subiendo
-        if ((a[i-1] < a[i]) && sube){
-            sube = true;  
-        } else if ((a[i-1] > a[i]) && sube){
-            res = i;
-            sube = false;
-            baja = true;
-        }
-
-        //caso cuando arranca bajando
-        if(baja && (a[i-1] < a[i])){
-            baja = false;
-            sube = true;
-        }
+    int it = 0;
+    if (length >= 2){
         
+        if (a[it]>a[it+1]){ //Si el arreglo comienza bajando al cima estaria al inicio
+            estric_crec = false; //El it se queda al inicio y no se entra a los bucles
+        }
+
+        while (estric_crec && it<length){
+            if (a[it]>a[it+1]){ //Se encontró cima y no debe entrar al sig bucle
+                estric_crec = false;
+            } else {
+                it= it+1;
+            }
+            
+        }
     }
-    return res;
+
+    //La cima esta en la ultima ubicacion analizada
+    return it;
 }
+
