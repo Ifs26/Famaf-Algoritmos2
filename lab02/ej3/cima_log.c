@@ -17,7 +17,12 @@
  */
 int cima_log(int a[], int length) {
 
-    // COMPLETAR!!
+    int res = length-1; //ubicacion del ultimo elemento
+    if (length == 1){ //Si el largo es igual a 1 entonces la ubicacion es 0
+        res = 0;
+    } else {
+        res = a[cima_log(a,length-1)] > a[res] ? cima_log(a,length-1) : res;
+    }
 
-    return 0;
+    return res;
 }
