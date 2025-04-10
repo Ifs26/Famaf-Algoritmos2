@@ -5,7 +5,7 @@
 #include "cima_log.h"
 
 // arreglo de un millon de elementos:
-#define ARRAY_LENGTH 1000000
+#define ARRAY_LENGTH 100000 //Era 1000000, lo tuve que bajar por la arquitectura de Win
 
 double medir_cima(int a[], int length);
 double medir_cima_log(int a[], int length);
