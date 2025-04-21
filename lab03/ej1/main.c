@@ -13,6 +13,7 @@
 
 /* Then, this project's includes, alphabetically ordered */
 #include "weather_table.h"
+#include "weather_utils.h"
 
 /**
  * @brief print usage help
@@ -52,6 +53,22 @@ char *parse_filepath(int argc, char *argv[]) {
     return (result);
 }
 
+void print_array(int a[],int largo){
+    printf("[");
+    for(int i=0;i<largo;++i){
+        printf("%d, ",a[i]);
+    }
+    printf("]\n\n");
+}
+void print_array_uns(unsigned int a[],int largo){
+    printf("[");
+    for(int i=0;i<largo;++i){
+        printf("%d, ",a[i]);
+    }
+    printf("]\n\n");
+}
+
+
 /**
  * @brief Main program function
  *
@@ -71,6 +88,20 @@ int main(int argc, char *argv[]) {
 
     /* parse the file to fill the table */
     table_from_file(table, filepath);
+
+    printf("Temp minima: %d\n",tempMin(table));
+
+    int a[YEARS];
+    maxTempAnos(table,a);
+    print_array(a,37);
+
+    
+    unsigned int b[YEARS];
+    maxRainMes_Anos(table,b);
+    print_array_uns(b,YEARS);
+    
+
+    
 
     /* show the table in the screen */
     table_dump(table);
