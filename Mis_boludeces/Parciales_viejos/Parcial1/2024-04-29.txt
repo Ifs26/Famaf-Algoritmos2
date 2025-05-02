@@ -1,0 +1,222 @@
+--EJERCICIO 1-----------------------------------------------------------------
+
+La epecificacion esta en mi cuaderno, aca solo dejo implementacion
+
+type Indicacion = enumerate
+                        straight
+                        left
+                        right
+                    end enumerate
+
+implement Recorrido of Indicacion where
+    
+    type Recorrido = List of Indicacion
+
+    construct 
+
+        fun trivial() ret r: Recorrido of Indicacion
+            r := empty()
+        end fun
+
+        proc add_paso (in/out r: Recorrido of Indicacion, in ind: Indicacion)
+            addl(ind,r)
+        end proc
+
+    destroy
+
+        proc destroyR(in/out r:Recorrido of Indicacion)
+            destroy(r)
+        end proc
+
+    operation
+
+        proc actContRec(in/out r:Recorrido of Indicacion)
+            tail(r)
+            if (head(r) == straight) then
+                skip
+            else if (head(r) == left) then
+                    addl(straight,r)
+                    for i:=1 to 3 do
+                        addl(right,r)
+                    od
+                else
+                    addl(straight,r)
+                    for i:=1 to 3 do
+                        addl(left,r)
+                    od
+                fi
+            fi  
+        end proc
+
+        proc actGireLft(in/out r:Recorrido of Indicacion)
+            tail(r)
+            if (head(r) == left) then
+                skip
+            else if (head(r) == straight) then
+                    addr(straight,r)
+                    addr(straight,r)
+                    addr(right,r)
+                    addr(right,r)
+                else
+                    addl(left,r)
+                    for i:=1 to 3 do
+                        addl(right,r)
+                    od
+        end proc
+
+        proc actGireRgt(in/out r:Recorrido of Indicacion)
+            tail(r)
+            if (head(r) == right) then
+                skip
+            else if (head(r) == straight) then
+                    addr(straight,r)
+                    addr(straight,r)
+                    addr(left,r)
+                    addr(left,r)
+                else
+                    addl(right,r)
+                    for i:=1 to 3 do
+                        addl(left,r)
+                    od
+        end proc
+        
+        fun sigContRec(r:Recorrido of Indicacion) ret b:bool
+            var tmp : Indicacion
+            tmp := head(r)
+            b := false
+            
+            tail(r)
+            if (head(r)==straight) then
+                b := true
+            fi
+            addl(tmp,r)
+        end fun
+
+        fun sigGirLft(r:Recorrido of Indicacion) ret b:bool
+            var tmp : Indicacion
+            tmp := head(r)
+            b := false
+            
+            tail(r)
+            if (head(r)==left) then
+                b := true
+            fi
+            addl(tmp,r)
+        end fun
+
+        fun sigGireRgt(r:Recorrido of Indicacion) ret b:bool
+            var tmp : Indicacion
+            tmp := head(r)
+            b := false
+            
+            tail(r)
+            if (head(r)==right) then
+                b := true
+            fi
+            addl(tmp,r)
+        end fun
+
+        fun sigLlegDest(r:Recorrido of Indicacion) ret b:bool
+            var tmp : Indicacion
+            tmp := head(r)
+            b := false
+            
+            tail(r)
+            if (is_empty(r)) then
+                b := true
+            fi
+            addl(tmp,r)
+        end fun
+
+        fun longitud(r:Recorrido of Indicacion) ret l:nat
+            l := 100*lenght(r)
+        end fun
+
+end implement
+
+fun VecesIzq (rec:Recorrido of Indicacion) ret r:nat
+    var largo: nat
+    largo := lenght
+    r:= 0
+    if (not is_empty(rec)) then
+        for i:=0 to largo do
+            if (index(rec,i) == left) then
+                r:=r+1
+            fi
+        od
+    fi
+end fun 
+
+--EJERCICIO 2-----------------------------------------------------------------
+proc lshift(in/out l: list of (Node of T))
+    var p,q: pointer to (Node of T)
+    p:=l
+    q:=l
+
+    {-Evito caso de lista vacia-}
+    if (l != null) then 
+
+        {-Voy con "p" al ultimo elemento de la lista y con "q"
+            guardo el penultimo-}
+        while (p->next != null) do
+            q := p
+            p := p->next
+        od
+
+        {-Asigno como sig elemento del ultimo de la lista al primero-}
+        p->next := l
+
+        {-Asigno al inicio de la lista el ultimo elemento-}
+        l:=p
+        
+        {-Desligo el penultimo elemento del ultimo original-}
+        q->next := null
+    fi
+end proc
+
+--EJERCICIO 3-----------------------------------------------------------------
+Segundo Algoritmo:
+    ¿Que hace?
+        Devuelve la ubicacion del elemento mas chico a partir de cierta 
+        ubicacion, omitiendo un elemento entre los elementos analizados
+    ¿Como lo hace?
+        Se analiza todo el arreglo salteando un lugar, comparando que desde
+        el elemento de la ubicacion dada tal elemento sea menor que el resto,
+        si no lo es el resultado será este nuevo elemento menor
+    Orden:
+        Analizaré la cantidad de asignaciones de j:
+
+            -j se asigna siempre una primera vez
+
+            -En cada iteracion del do tenemos que j se incrementa dos veces hasta llegar a N,
+            por lo que en vez de necesitar N iteraciones necesito N/2 iteraciones.
+            -Pero las iteraciones no empiezan desde j=0 sino desde j=i+2, por lo que
+            el bucle do se ejecuta (N-(i+2)) veces.
+            -En el mejor de los casos N es semejante i+2, donde no se entra al bucle, pero en el
+            peor de los casos la distancia entre N y i+2 es la mayor posible e i+2 es <= que N, 
+            por lo que si N e i son naturales entonces i=1 
+            
+            =Por el bucle do y la asignacion inicial obtenemos entonces que el orden sera
+                        O((N-3)/2 + 1)=O(N/2-3/2 + 1)=O(N/2)=O(N) -> Lineal      
+
+
+Primer algoritmo:
+    ¿Que hace? 
+        Ordena ascendentemente el arreglo solo en las ubicaciones pares
+    ¿Como lo hace?
+        Desde el segundo elemento hasta el final del arreglo se efectua el segundo
+        algoritmo en cada ubicacion par para obtener el lugar del menor elemento,
+        luego se intercambian los lugares y se repite (omitiendo siempre un elemento)
+    Orden:
+        Analizaré la cantidad de asignaciones de i:
+            -Tenemos una asignacion inicial
+            -El bucle do inicia siempre desde 2 hasta N, por lo que el orden sería N-2,
+            pero dentro del bucle se avanza cada dos elementos, por lo que para salir del
+            bucle se requeririan (N-2)/2 asignaciones
+            -Ademas dentro del bucle hay una funcion auxiliar de complejidad lineal, por
+            lo que la complejidad minimo será lineal 
+            -Incluso si el bucle do se ejecutara solo una vez, el mejor de los casos, el auxiliar
+            sigue siendo lineal, pero en el peor de los casos al algoritmo auxiliar O(n) se ejecuta 
+            (N-2)/2 veces, con lo cual tenemos que un algoritmo auxiliar O(n)que se ejecuta n/2 veces
+            -Finalmente el orden es 
+                            O(N/2 * N)=O(N^2)=O(N^2) -> Cuadratica

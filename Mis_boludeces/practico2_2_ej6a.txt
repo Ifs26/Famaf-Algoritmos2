@@ -1,0 +1,37 @@
+proc intersectar(in/out c1: ConjuntoF, in c2: ConjuntoF)
+    var p,q,f : pointer of (Node of T)
+    p := c1
+    q := c1
+    f := c1 
+    c1 := null
+
+    {CASO BASE}
+    if (pertenece(c2,c1->elem)) then
+        q:=p
+        f:=p->next
+        p:=p->next
+    else
+        p:=p->next
+        q->next:=p
+        c1:=p
+        free(f)
+
+
+    while (p->next != null) do
+        if(pertenece(c2,p->elem)) then
+            q:=p
+            f:=p->next
+            p:=p->next
+        else
+            p:=p->next
+            if (c1 = null) then
+                c1:=
+            q->next:=p
+            free(f)
+        fi
+    od
+end proc
+
+Que pasa si el primer elemento no pertenece al resultado final?? 
+    Ahora C1 se me desconecta de todo por el free(f)
+        Posible solucion, caso base
