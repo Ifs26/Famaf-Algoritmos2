@@ -1,0 +1,248 @@
+--EJERCICIO 1-----------------------------------------------------------------
+
+---- (a) ----------
+    [3,17,2,10,5,8,3]
+    [3,2,17,10,5,8,3]
+    [2,3,17,10,5,8,3]
+    [2,3,10,17,5,8,3]
+    [2,3,10,5,17,8,3]
+    [2,3,5,10,17,8,3]
+    [2,3,5,10,8,17,3]
+    [2,3,5,8,10,17,3]
+    [2,3,5,8,10,3,17]
+    [2,3,5,8,3,10,17]
+    [2,3,5,3,8,10,17]
+    [2,3,3,5,8,10,17]
+
+---- (b) ----------
+
+proc p (in/out a:array[1..n] of Int, in e: Int, out k: Nat)
+
+    k := 0
+
+    {Obtiene cantidad de elementos menores en K}
+    for i:=1 to n do
+        if (e>a[i]) then
+            k := k+1
+        fi
+    od
+
+    {A partir del elemento k+1 intercambia lugar con el segmento [1..k]
+        si el valor en k+1 es menor a E}
+    j:=1
+    if (n > 2) then
+        for i:=k+1 to n do
+            if (a[i]<e) then
+                temp := a[i]
+                a[i] := a[j]
+                a[j] := a[i]
+                j:= j+1
+        od
+    fi
+
+end proc
+
+                                    ¿Que orden tiene?
+    -Voy a analizar la cantidad de asignaciones a i
+        -Al incio verifico todo el arreglo, asi que al menos es LINEAL
+        -Por defecto tiene una mas
+
+        -Si el arreglo es mayor que 2 entonces entra a un bloque con asignaciones
+            --El peor de los casos para el for es que la distancia entre k+1 y n
+            sea la mayor posible, vease que K = 1, osea que solo hay un elemento y
+            el algoritmo se ejecuta n-2 veces, vease es LINEAL
+        
+        =Por lo tanto tengo dos bucles lineales, obteniendo que
+                Orden = O(N)+O(N-2) = O(N)+O(N) = O(2N) = O(N) => LINEAL
+
+
+--EJERCICIO 2-----------------------------------------------------------------
+
+¿Que hace? 
+    Libera memoria de una lista omitiendo un elemento
+¿Como lo hace? 
+    Con un primer puntero apunta a un primer elemento y con otro apunta al siguiente, luego 
+    hace que el siguiente elemento del primer elemento sea el siguiente del segundo elemento
+    y libera la memoria del segundo elemento, el cual era apuntado por el segundo puntero
+    
+¿Cual es el orden?
+    Voy a analizar las asignaciones del puntero a
+        -En el mejor de los casos la lista ya estaba vacia, pero en el peor de los
+        casos la lista comienza con elementos, supongamos que tiene N elementos
+        -El bucle recorre toda la lista omitiendo siempre un elemento, con lo cual habrá
+        n/2 asignaciones del puntero a
+        -Luego el orden es:
+                        O(N/2 + 1) = O(N/2) = O(N) => LINAL
+
+Si se llama al procedimiento con una lista que tiene como valores 1,2,3,4,5,6,7
+luego de llamar al procedimiento la lista tendra los valores 1,3,5,7
+
+--EJERCICIO 3-----------------------------------------------------------------
+
+tamaño del dato de entrada: n
+Operacion a contar: Asignaciones a var t
+
+defino una funcion matematica r(n) que calcula la cantidad de asignaciones a var t al ejecutar f
+con dato de entrada n
+
+r(n) { c                --> 1
+     } a*r(n/b)+g(n)    --> 2* r(n/2) n^2
+
+a => Cantidad de veces que se llama a la recursion
+b => Valor que divide a la variable N en cada recursion
+k => grado del orden de g(n), el cual es el orden del resto del algoritmo
+
+Ahora tengo que a ? b^k => 2 ? 2^2 => 2 < 4, por ende el orden de f(n) = n^2
+
+--EJERCICIO 4-----------------------------------------------------------------
+
+spec Multiset of T where
+
+    constructors   
+
+            fun msVacio() ret ms: Multiset of T
+            {-Crea un multiset vacio-}
+
+            proc add(in/out ms:Multiset of T, in e:T)
+            {-Agrega un elemento a un multiconjunto-}
+
+    destroy
+
+            proc destroyms(in/out ms:Multiset of T)
+            {Libera memoria en caso de ser utilizada}
+
+    operations
+
+            fun is_void(ms:Multiset of T) ret b: bool
+            {Indica si el multiset esta vacio o no}
+
+            fun e_exist(ms:Multiset of T, e:T) ret b: bool
+            {Indica si un elemento ya existe en el multiset}
+
+            fun cuantos_e(ms:Multiset of T, e:T) ret n: nat
+            {Indica cuantas veces un elemento dado ocurre en el multiset}
+            {PRE: e_exist(ms,e) = true}
+
+            proc del_ocur(in/out ms:Multiset of T, in e:T)
+            {Elimina una ocurrencia de un elemento en un Multiset}
+            {PRE: e_exist(ms,e) = true}
+end spec
+
+
+Para la especificacion se asumirá que para los elementos T 
+el operador == es aplicable, de lo contrario es imposible resolver
+este ejercicio
+
+implement Multiset of T where
+
+    type Multiset of T = List of (Elemento of T)
+    
+    type Elemento = tuple
+                    elem:T
+                    ocurr:nat
+                end tuple
+
+    constructors
+
+        fun mcVacio() ret ms: Multiset of T
+            ms := init()
+        end fun
+
+        proc add(in/out ms:Multiset of T, in e:T)
+            var elemento : Elemento
+            var it : nat
+            var b : bool
+
+            elemento.elem := e
+            elemento.ocurr := 1
+
+            {Verifica si en algun lugar se encuentra el elemento}
+            it := 0
+            b:= false
+            while (it < (lenght(ms)) && b == false) do
+                if(index(ms,it).elem == e) then
+                    b := true
+                fi
+                it := it+1
+            od
+
+            {Si no existia el elemento en el primer caso, si existia en el segundo
+            (Lo agrega al final)                          (Añade una ocurrencia)}
+
+            if (it>=lenght(ms)) then
+                addl(ms,elemento)
+            else
+                for i:=1 to lenght(ms) do
+                    if (head(ms).elem == e) then
+                        elemento.ocurr := elemento.ocurr + head(ms).ocurr
+                        addr(ms,elemento)
+                    else
+                        addr(ms,head(ms))
+                    fi
+                    tail(ms)
+                od
+            if
+
+        end proc
+
+    destroy
+
+        proc destroyms(in/out ms:Multiset of T)
+            destroy(ms)
+        end proc
+
+    operations
+
+        fun is_void(ms:Multiset of T) ret b: bool
+            b := is_empty(ms)
+        end fun
+
+        fun e_exist(ms:Multiset of T, e:T) ret b: bool
+            var it : nat
+            it := 0
+            b:= false
+            while (it < (lenght(ms)-1) && b == false) do
+                if(index(ms,it).elem == e) then
+                    b := true
+                fi
+                it := it+1
+            od
+        
+        fun cuantos_e(ms:Multiset of T, e:T) ret n: nat
+            var it : nat
+
+            {Obtener ubicacion de elemento e}
+            it := 0
+            while (index(ms,it).elem != e) do
+                it := it+1
+            od
+
+            n := index(ms,it).ocurr
+        end fun
+
+        proc del_ocur(in/out ms:Multiset of T, in e:T)
+            var q: Elemento
+            q.elem := e
+            q.ocurr := 0
+
+            for i:=1 to lenght(ms) do
+                if(head(ms).elem == e) then
+                    q.ocurr := head(ms).ocurr - 1
+                    if (q.ocurr < 0) then
+                        q.ocurr := 0
+                    addr(ms,q)
+                else
+                    addr(head(ms))
+                fi
+                tail(ms)
+            od
+end spec
+
+fun multPares (a:array[1..N] of Nat) ret ms: Multiset of Nat
+    ms := msVacio()
+    for i:=1 to n do:
+        if (a[i]%2 == 0) then
+            add(ms,a[i])
+        fi
+    od
+end fun
