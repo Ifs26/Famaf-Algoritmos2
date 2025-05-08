@@ -36,18 +36,6 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
     unsigned int j = der; //Tiene que detectar mayores al pivot
 
     while (i<=j){
-        //printf("\n|| i=%d",i);
-        //printf(" y j=%d",j);
-        //printf("|| pivot: %d en lugar %d",a[pivot], pivot);
-
-        //i = (a[i] <= a[pivot]) ? i+1 : i ;
-        //j = (a[j] >= a[pivot]) ? j-1 : j ;
-        
-
-        /*if ((a[i] > a[pivot]) && (a[j] < a[pivot])){
-            //printf("\nSWAP! por CASO i %d > %d y ademas CASO j %d < %d\n",a[i],a[pivot],a[j],a[pivot]);
-            swap(a,i,j);
-        }*/
 
         if (a[i] <= a[pivot]){
             i = i+1;
@@ -56,11 +44,8 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
             j = (j > 0) ? j : 0;
         } else if ((a[i] > a[pivot]) && (a[j] < a[pivot])){
             swap(a,i,j);
-        }
-
-        
+        }   
     }
-
     
     //printf("\nUltimo j de iteracion: %d\n",j);
     swap(a,pivot,j);
@@ -68,35 +53,6 @@ static unsigned int partition(int a[], unsigned int izq, unsigned int der) {
 
     return pivot;
 
-    /*
-    while (i<=j){//i y j se van a ir a acercando desde los bordes
-
-        printf("\n|| i=%d",i);
-        printf(" y j=%d",j);
-        printf("|| pivot: %d en lugar %d",a[pivot], pivot);
-
-        if ((a[i] > a[pivot]) && (a[j] < a[pivot])){
-            printf("\nSWAP! por %d > %d y ademas %d < %d",a[i],a[pivot],a[j],a[pivot]);
-            swap(a,i,j);
-        }
-
-        i = (a[i] <= a[pivot]) ? i+1 : i ;
-        j = (a[j] >= a[pivot]) ? j-1 : j ;
-        
-        
-
-
-        
-        printf("\n|| i=%d",i);
-        printf(" y j=%d",j);
-        printf("|| pivot: %d en lugar %d",a[pivot], pivot);
-        //assert(i<=j);
-    }
-    printf("\n/------");
-    swap(a,pivot,j);
-    pivot = j; 
-    return pivot;
-   */
 }
 
 static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {

@@ -24,18 +24,6 @@ int k_esimo(int a[], int length, int k) {
     // COMPLETAR!!
     assert(k<=length);
 
-    /* int res = 0;
-
-    int ppiv = 0;
-    for (int i=0;i <= k;i++){
-        ppiv = partition(a,i,length-1);
-        if(ppiv == k){
-            res = ppiv;
-        }
-    }
-
-    return a[res]; */
-
     int izq = 0, ppiv,der = length-1;
     //obtiene el lugar definitivo del primer elemento
     ppiv = partition(a,izq,der);
