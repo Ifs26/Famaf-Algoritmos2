@@ -46,9 +46,9 @@ int main(void) {
     p->age = 36;
     p->height = 169;
 
-    printf("name  : %s bytes\n"
-        "age   : %d bytes\n"
-        "height: %d bytes\n"
+    printf("name  : %s\n"
+        "age   : %d\n"
+        "height: %d\n"
         , p->name,p->age,p->height);
 
     free(p);
