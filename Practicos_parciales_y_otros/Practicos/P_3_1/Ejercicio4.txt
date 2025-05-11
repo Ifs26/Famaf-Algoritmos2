@@ -1,0 +1,64 @@
+I) Describa cual es el criterio de seleccion.
+
+    El criterio de seleccion es el siguiente: dada una n cantidad de 
+    ballenas, se eligirá como primera a rescatar la que menor cantidad
+    de tiempo de vida le quede en cada momento
+
+II) ¿En que estructuras de datos representara la informacion del problema?
+
+    Las ballenas se presentaran como arreglos de Ballena, la cual es una tupla que contiene
+    el numero asignado a cada ballena y su tiempo de vida.
+
+    El orden a rescatar se presetaran como una Cola de Ballena.
+
+III) Explique el algoritmo
+
+    Primero se ordenan las ballenas de acuerdo al tiempo de vida que les queda, luego se verifica 
+    en ese orden cada ballena teniendo en cuenta cuantas ballenas tendriamos si la intentaramos salvar.
+    Si no se lograra salvar la descartamos, en caso contrario la agregamos a la cola
+--------------------------------------------------------------------------------------
+
+type Ballena = tuple
+                    num = nat
+                    s = nat    
+                end tuple
+
+fun (aB : array[1..n] of Ballena, t :nat) ret qB : Queue of Ballena
+    var aB_aux : array[1..n] of Ballena
+    var menos_tiempo : nat
+    var ball_salvada : nat
+
+    for i:=1 to n do aB_aux[i] := aB[i] od
+    
+    {Algoritmo que ordena el arreglo de ballenas de acuerdo al
+        tiempo restante}
+    quick_sort_ballenas(aB_aux)
+
+    ball_salvada := 1
+    for i:=1 to n do
+
+        s_ballena = aB_aux[i].s - (ball_salvada*t) 
+
+        if (s_ballena > 0) then
+            enqueue(qB,aB_aux[i])
+            ball_salvada := ball_salvada + 1
+        fi
+    od
+end fun
+
+proc quick_sort_ballenas(in/out aB_aux: array[1..n] of Ballena)
+    quick_sort_ballenas_rec(aB_aux,1,n)
+end proc
+
+proc quick_sort_ballenas_rec(in/out aB_aux: array[1..n] of Ballena,lft :nat, rgt:nat)
+    {-Aca va la implementacion generica de quick_sort_rec-}
+end proc
+
+        
+
+
+    
+
+
+
+    
