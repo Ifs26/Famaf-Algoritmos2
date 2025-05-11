@@ -1,0 +1,67 @@
+I) ¿Cual es el criterio de seleccion?
+
+    El criterio de seleccion se fijará sobre si se debe recargar combustible
+    en una localidad o no.
+
+    Para ello se revisara lo siguiente: Si la autonomia del vehiculo es 0 o la
+    distancia entre una ciudad y la siguiente es mayor a la autonomia actual del
+    vehiculo entonces se deberá recargar combustible en esa ciudad, de lo contrario
+    se continua el recorrido.
+
+--------------------------------------------------------------------------------------
+
+type Ciudad = tuple
+                    nombre : string
+                    dist_next_C : nat
+                end tuple
+
+{-NOTA: Como el automovil va siguiendo un recorrido especifico
+    no es imprudente guardar una distancia fija de una ciudad con 
+    la siguiente, no baraja la posibilidad de ir a otra-}
+
+type RecComb = tuple
+                    cant : nat
+                    donde : List of Ciudad
+                end tuple
+
+{-NOTA: Decidi devolver una tupla para usar una funcion, pero
+podría haber hecho un proceso y hacer dos in/out's -}
+
+fun menRec (auton,auton_max : nat, l: array[1..n] of Ciudad) ret rc: RecComb
+
+        auton := 0
+        rc.donde := empty()
+
+        {-Llena combustible si no tiene mas autonomia-}
+        for i=1 to n do
+            if ((auton == 0) V (l[i].dist_next_C > auton)) then
+                auton := auton_max
+                rc.cant := rc.cant + 1
+                addr(rc.donde,l[i])
+            fi
+            auton := auton - l[i].dist_next_C
+        od
+end fun
+
+--------------------------------------------------------------------------------------
+
+II) ¿En que estructuras de datos representara la informacion del problema?
+
+    La autonomia del vehiculo y su autonomia maxima se presentaran como naturales.
+
+    Cada localidad se representara como una tupla Ciudad que contiene el nombre como string y 
+    la distancia con la siguiente ciudad de un recorrido particular como numero natural.
+
+    Las localidades ya ordenadas para el recorrido se presentaran como un arreglo 
+    del tipo Ciudad.
+
+    La cantidad de localidades, y su nombre, donde se recargo combustible al final del recorrido
+    sera representado como una tupla RecComb que contiene el numero natural de ciudades visitadas
+    y una lista de Ciudad que indica en que localidad se recargo
+
+III) Explique el algoritmo
+
+    Dado un recorrido, se verifica en cada localidad si el vehiculo aun posee autonomia o si la 
+    distancia entre la localidad actualidad y la siguiente es mayor a la autonomia actual del 
+    vehiculo. En tales caso se recarga todo el combustible, en caso contrario se continua el 
+    recorrido.
