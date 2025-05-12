@@ -1,0 +1,93 @@
+I) El criterio de seleccion consistira en elegir el momento de extraccion
+de acuerdo al menor maximo admisible de coccion Ti
+
+--------------------------------------------------------------------------------------
+NOTA: En los ultimos dos ejercicios hacerlos con Sets me da complejidad O(n^2). Creo 
+que deberia comenzar a evitar usar el TAD Set lo mas posible, no me ayuda tener que recorrer
+todo el set para filtrar informacion al no poder tener direcciones.
+
+PRACTICA PARA PARCIAL: Implementar este ejercicio con otro TAD, como una Lista de 
+tiempos de coccion por ejemplo.
+--------------------------------------------------------------------------------------
+
+type Tiempo_coccion = tuple
+                            min_c : nat
+                            max_c : nat
+                        end tuple
+
+fun horarios_extracciones (sT: Set of Tiempo_coccion) ret qT: Queue of nat
+    //Busco el max_c mas chico
+    var sT_aux : Set of Tiempo_coccion
+    var t : Tiempo_coccion
+
+    qT := empty_queue()
+    sT_aux := copy_set(sT)
+
+    if (not is_empty_set(sT_aux)) then
+
+        t := get(sT_aux)
+        elim(sT_aux, t)
+
+        while (not is_empty_set(sT_aux)) do
+
+            menor_max_c(sT_aux,t)
+            enqueue(qT,t.max_c)
+            filt_st(sT_aux,t)
+        od
+    fi
+
+    destroy_set(sT_aux)
+end fun
+    
+proc menor_max_c (in sT: Set of Tiempo_coccion, in/out t:Tiempo_coccion)
+    var t_aux : Tiempo_coccion
+    var sT_aux : Set of Tiempo_coccion
+    sT_aux := copy_set(sT)
+
+    if (not is_empty_set(sT_aux)) then
+        
+
+        while (not is_empty_set(sT_aux)) do
+            t_aux := get(sT_aux)
+            elim(sT_aux, t_aux)
+
+            if (t_aux.max_c < t.max_c) then
+                t:=t_aux
+            fi
+        od
+    fi
+    
+    destroy_set(sT_aux)
+end proc
+
+{ -Tengo que filtrar todo lo que sacaria en este momento
+    Vease todo lo que coccion minima es menor o igual que t.max_c y
+    coccion maxima es mayor o igual que t.max_c al mismo tiempo -}
+    |
+    |
+    V
+proc filt_st(in/out sT : Set of Tiempo_coccion, in t: Tiempo_coccion)
+
+    var sT_aux : Set of Tiempo_coccion
+    var t_random: Tiempo_coccion
+
+    //Copiar set en auxiliar y limpiar original
+    while(not is_empty_set(sT)) do
+        t_random := get(sT)
+        elim(sT, t_random)
+        add_set(sT_aux,t_random)
+    od
+
+    while (not is_empty_set(sT_aux)) do
+        t_random := get(sT_aux)
+        elim(sT_aux, t_random)
+
+        if (t_random.min_c <= t.max_c && t_random.max_c >= t.max_c) then
+            skip
+        else
+            add_set(sT,t_random)
+        fi
+    od
+
+    destroy_set(sT_aux)
+end proc
