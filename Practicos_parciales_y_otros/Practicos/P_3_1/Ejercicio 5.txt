@@ -1,0 +1,98 @@
+I) ¿Cual es el criterio de seleccion?
+
+    Se todos los dias de salida y llegada de cada viaje (pi y ri) y recien al dia siguiente
+    del regreso se puede pasar a otra persona el telefono, por lo que el criterio consistira
+    en elegir al que termina antes a partir de cierto tiempo.
+
+III) 
+
+    Toma el viaje mas corto del set y lo agrega a la lista de viajes, luego se repite 
+    verificando que no se interpongan las fechas 
+--------------------------------------------------------------------------------------
+type Fecha = tuple
+                    año: nat
+                    mes: nat
+                    dia: nat
+                end tuple
+
+type Viaje = tuple
+                    s: fecha
+                    r: fecha
+                end tuple
+
+fun prestamo (sV: Set of Viaje) ret lPrestamo : List of Viaje
+
+    var sV_aux: Set of Viaje
+    var v_actual : Viaje
+    var f : Fecha
+    sV_aux := copy_set(sV)
+
+    while (not is_empty_set(sV_aux)) do
+        v_actual := primero_termina(sV_aux) //Extrae el que termina primero del set
+        quitar_invalidos(sV_aux,v_actual.r) //Quita invalidos, incluyendo a v_actual
+        addr(lPrestamo, v_actual)
+    od
+end fun
+
+fun primero_termina(sV: Set of Viaje) ret v : Viaje
+    var v_random: Viaje
+    var sV_aux : Set of Viaje
+    sV_aux := copy_set(sV)
+    v := get(sV_aux)
+    elim(sV_aux, v)
+
+    while(not is_empty_set(sV_aux)) do
+        v_random := get(sV_aux)
+        if (v_random.r.año < v.r.año) then
+            v := v_random
+        else if (v_random.r.año == v.r.año) then
+                if (v_random.r.mes < v.r.mes) then 
+                    v := v_random
+                else if (v_random.r.mes == v.r.mes) then
+                        if (v_random.r.dia < v.r.dia) then
+                            v := v_random
+                        fi
+                    fi
+                fi
+            fi
+        fi
+        elim(sV_aux, v_random)
+    od 
+
+    detroy_set(sV_aux)
+end fun
+
+proc quitar_invalidos(in/out sV: Set of Viaje,in r: Fecha)
+    
+    //Voy a crear un set auxiliar, copiar el original y vaciar el original para rellenarlo
+    var sV_aux : Set of Viaje
+    var v_random: Viaje
+
+    while(not is_empty_set(sV)) do
+        v_random := get(sV)
+        elim(sV, v_random)
+        add_set(sV_aux,v_random)
+    od
+
+    while(not is_empty_set(sV_aux)) do      
+        v_random := get(sV_aux)
+        elim(sV_aux, v_random)
+        
+        // Si la fecha de salida es mayor a r, conservarlo
+        if (v_random.s.año > r.año || 
+            (v_random.s.año == r.año && v_random.s.mes > r.mes) ||
+            (v_random.s.año == r.año && v_random.s.mes == r.mes && v_random.s.dia > r.dia)) then
+            add_set(sV, v_random)
+        fi
+    od
+
+    destroy_set(sV_aux)
+end proc
+
+Que ejercicio de mierda.
+
+
+
+
+
+    
