@@ -1,3 +1,5 @@
+Este ejercicio es un caso INTERVAL SHEDULING con greedy algorithm, para investigar
+
 I) ¿Cual es el criterio de seleccion?
 
     Se todos los dias de salida y llegada de cada viaje (pi y ri) y recien al dia siguiente
