@@ -39,7 +39,10 @@ int * array_from_file(const char *filepath, size_t *length) {
     //            - Cambiar el valor de *length para que contenga el tamaño del
     //              arreglo.
     //
-    
+    *length = size; //<- en size ya tenia el largo que obtuve a traves de fscanf
+    array = malloc(sizeof(int)*(*length)); /* Con el malloc guarde la memoria necesaria para 
+                                            entero multiplicado por el largo */
+    //Solo agregue estas lineas
 
     if (size > 0 && array == NULL) {
         fprintf(stderr, "Not enough memory\n");

@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
     // 
     // COMPLETAR: Liberar la memoria usada por <array>
     //
+    free(array); //agregue esto nomas
 
     return EXIT_SUCCESS;
 }
