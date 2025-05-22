@@ -3,6 +3,14 @@
 
 typedef struct s_pair_t * pair_t;
 
+struct s_pair_t {
+    int fst;
+    int snd;
+};
+/*Agregue de nuevo el struct en pair.h, agregarlo en main rompe el 
+encapsulamiento y en pair.c no funciona siquiera porque el programa 
+no encuentra la definicion de s_pair_t */
+
 pair_t pair_new(int x, int y);
 /*
  * DESC: Creates a new pair with components (x, y)
