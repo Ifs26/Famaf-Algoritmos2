@@ -26,9 +26,20 @@ $$
 maxImporte(H,n)
 \left\lbrace
 \begin{array}{ll}
-0 &\text{si }(H=0) || (n=0) \\
-max(maxImporte(H,n-1),m_n+maxImporte(H-h_n,n-1)) &\text{si }(H >= h_n)\\
+0 &\text{si }(H=0)\lor(n=0) \\
+max(maxImporte(H,n-1),m_n+maxImporte(H-h_n,n-1)) &\text{si }(H\geq h_n)\\
 maxImporte(H,n-1)&\text{si }(H<h_n)\\
+\end{array}
+\right.
+$$
+
+$$
+maxImporte(H,n) =
+\left\lbrace
+\begin{array}{ll}
+0 & \text{si } H = 0 \lor n = 0 \\
+\max\left(maxImporte(H, n - 1),\ m_n + maxImporte(H - h_n, n - 1)\right) & \text{si } H \geq h_n \\
+maxImporte(H, n - 1) & \text{si } H < h_n
 \end{array}
 \right.
 $$
