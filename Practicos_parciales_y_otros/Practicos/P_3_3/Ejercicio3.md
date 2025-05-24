@@ -1,6 +1,6 @@
 # Ejemplo de uso de llave, ¡Ver codigo!
 $$
-funcion(x,y)
+f(x,y) = 
 \left\{
 \begin{array}{ll}
 x + y = 10 \\
