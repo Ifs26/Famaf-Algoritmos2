@@ -15,8 +15,8 @@ $$
 maxValAlquiler(r,i) =
 \left\lbrace
 \begin{array}{ll}
-0 & \text{si } i = 0 \\[3pt]
-maxValAlquiler(r,i-1) & \text{si } r \gt p_i \\[3pt]
+0 & \text{si } i = 0 \\
+maxValAlquiler(r,i-1) & \text{si } r \gt p_i \\
 \max\left(maxValAlquiler(r,i-1),\ (m_i * (r_i - p_i)) + maxValAlquiler(r_i,i-1)\right) & \text{si } r \leq p_i 
 \end{array}
 \right.
