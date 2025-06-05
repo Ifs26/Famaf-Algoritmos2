@@ -1,40 +1,5 @@
 #include <stdbool.h>
 
-/* Esto es para el b)
-struct Node{
-    list_elem elem;
-    Node *next;
-}
-
-
-typedef struct list_impl *list; 
-
-struct Node {
-    list_elem elem;
-    Node *next;
-}
-
-struct list_impl {
-    Node *first;
-}
-
-/*
-struct list_impl {
-    list_elem elems[MAX_ELEMS];
-    int size;
-}*/
-
-
-
-/*
-    constructors
-    fun empty() ret l : List of T
-    
-    proc addl (in e : T, in/out l : List of T)
-    {- agrega el elemento e al comienzo de la lista l. -}
-
-*/
-
 /* CONSTRUCTORS----------------------------------------------*/
 typedef int list_elem;
 
@@ -61,7 +26,7 @@ list tail(list l);
 //Elimina el primer elemento de la lista l
 //PRE: not is_empty(l)
 
-void addr(list_elem e, list l);
+list addr(list_elem e, list l);
 //Agrega el elemento e al final de la lista l
 
 int lenght(list l);
@@ -77,7 +42,7 @@ list_elem index(list l, int n);
 void take(list l, int n);
 //Deja en l solo los primeros n elementos, eliminando el resto
 
-void drop(list l, int n);
+list drop(list l, int n);
 //Elimina los primeros n elementos de l
 
 list copy_list(list l);

@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "list.h"
 
 struct list_imp{
@@ -77,19 +80,31 @@ list tail(list l){
 //Elimina el primer elemento de la lista l
 //PRE: not is_empty(l)
 
-void addr(list_elem e, list l){
-    list l2;
+//Agrega el elemento e al final de la lista l
+list addr(list_elem e, list l){
+
+    //Idea: voy hasta el final de la lista y hago que el ultimo elemento apunte al nuevo
+
+    //Guardo el elemento en el tipo de dato
     struct list_imp *elemToAdd = malloc(sizeof(struct list_imp));
     elemToAdd->elem = e;
     elemToAdd->next = NULL;
 
-    l2 = l;
-    while(l2 != NULL){
-        l2 = l2->next;
+    //Primero verifico si la lista no esta vacia
+    if (l != NULL){
+        list laux = l; //Creo laux para recorrer toda la lista
+        //Avanzo hasta el final de la lista
+        while(laux->next != NULL){
+            laux = laux->next;
+        }
+        laux->next = elemToAdd;
+    } else {
+        l = elemToAdd;
     }
-    l2->next = elemToAdd;
+
+    return l;
 }
-//Agrega el elemento e al final de la lista l
+
 
 int lenght(list l){
     list l2;
@@ -103,15 +118,20 @@ int lenght(list l){
 }
 //Devuelve la cantidad de elementos de la lista l
 
-void concat(list l,list l0){
-    list l1 = l;
-    while(l1!=NULL){
-        l1 = l1->next;
-    }
-    l1->next=l0;
-}
 //Agrega al final de l todos los elementos de l0 en el mismo orden
+void concat(list l,list l0){ 
+    /*Arreglar esto, tengo que usar malloc con cada elemento de la proxima lista
+    LOS ELEMENTOS NO PUEDEN QUEDAR COMPARTIDOS*/
+    
+    //Primero voy a avanzar hasta el final de la lista
+    list laux = l;
+    while(laux->next != NULL){
 
+    }
+}
+
+//Devuelve el n-esimo elemento de la lista l
+//PRE: lenght(l) > n && n > 0
 list_elem index(list l, int n){
     list l1 = l;
     int iter = n;
@@ -121,18 +141,8 @@ list_elem index(list l, int n){
     }
     return l1->elem;
 }
-//Devuelve el n-esimo elemento de la lista l
-//PRE: lenght(l) > n && n > 0
-/*void destroy(list l){
-    struct list_imp *elemento;
-    elemento = l;
-    while(l != NULL){
-        l = elemento->next;
-        free(elemento);
-        elemento = l;
-    }
-}
-*/
+
+//Deja en l solo los primeros n elementos, eliminando el resto
 void take(list l, int n){
     //Primero avanzo n lugares
     list l1 = l;
@@ -150,23 +160,36 @@ void take(list l, int n){
     }
 
 }
-//Deja en l solo los primeros n elementos, eliminando el resto
 
-void drop(list l, int n){
-    // Voy a eliminar con el algoritmo de destroy los n primeros
-    // No tengo que perder el acceso
-    list l1 = l; // guardo la direccion base
-    int iter = n;
-    while(iter!=n){ //Avanzo l n lugares
-        l=l->next;
-        iter=iter-1;
+//Elimina los primeros n elementos de l
+list drop(list l, int n){
+    //Alternativa mejor
+    list l1; 
+    int pos = 0;
+    while(pos<n && !is_empty(l)){
+        l1 = l;
+        l = l->next;
+        free(l1);
+        pos++;
     }
-    //Comienzo a liberar memoria
+    return l;
     //--------------------------------------------------------------
-    /* Idea: voy elimanando siempre el primero, si paso el n lugar empiezo a agregarlo por 
+    /* Idea alternativa 2: voy elimanando siempre el primero, si paso el n lugar empiezo a agregarlo por 
     la derecha.*/
 }
-//Elimina los primeros n elementos de l
 
-list copy_list(list l);
 //Copia todos los elemtnos de l1 en la nueva lista l2
+list copy_list(list l){
+    
+    list lret = empty();
+    list *last_ptr = &lret;
+    list laux = l;
+    while (laux != NULL) {
+        *last_ptr = malloc(sizeof(struct list_imp));
+        (*last_ptr)->elem = laux->elem;
+        (*last_ptr)->next = NULL;
+        last_ptr = &((*last_ptr)->next);
+        laux = laux->next;
+    }
+    return lret;
+}

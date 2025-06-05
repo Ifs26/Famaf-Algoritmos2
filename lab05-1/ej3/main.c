@@ -31,19 +31,32 @@ char *parse_filepath(int argc, char *argv[]) {
     return (result);
 }
 
-
+//Calcula promedio de elementos de la lista, los suma y los divide por el largo
 float average(list l) {
-/*
-    Needs implementation.
-*/
+    printf("Entro a average");
+    float res = 0;
+    int pos = 0;
+    while(pos < lenght(l)){
+        res = res+index(l,pos);
+        pos++;
+    }
+    res = res/(lenght(l));
+    return res;
+
 }
+
 
 list array_to_list(int array[], unsigned int length) {
     /* Initialize the list */
+    list lret = empty();
+    printf("Entro a arraytolist");
     for (unsigned int i = 0u; i < length; ++i) {
         /* Add element to the list  */
+        lret = addr(array[i],lret);
     }
+    printf("Entro a arraytolist");
     /* Return list */
+    return lret;
 }
 
 int main(int argc, char *argv[]) {
