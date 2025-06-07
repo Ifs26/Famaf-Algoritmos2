@@ -1,4 +1,4 @@
-# Ejercicio 7: 
+# Ejercicio 8: 
 ## Una fabrica de automoviles tiene dos lıneas de ensamblaje y cada lınea tiene n estaciones de trabajo, S1,1, . . . , S1,n para la primera y S2,1, . . . , S2,n para la segunda. Dos estaciones S1,i y S2,i (para i = 1, . . . , n), hacen el mismo trabajo, pero lo hacen con costos a1,i y a2,i respectivamente, que pueden ser diferentes. Para fabricar un auto debemos pasar por n estaciones de trabajo Si1,1, Si2,2 . . . , Sin,n no necesariamente todas de la misma l´ınea de montaje (ik = 1,2). Si el automovil esta en la estacion Si,j , transferirlo a la otra lınea de montaje (es decir continuar en Si0,j+1 con i0 6= i) cuesta ti,j . Encontrar el costo mınimo de fabricar un automovil usando ambas lıneas
 
 ````python
