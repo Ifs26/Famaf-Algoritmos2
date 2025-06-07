@@ -1,7 +1,7 @@
 # Ejercicio 3: 
 ## Usted se encuentra en un globo aerostatico sobrevolando el oceano cuando descubre que empieza a perder altura porque la lona esta levemente dañada. Tiene consigo n objetos cuyos pesos p1, . . . , pn y valores v1, . . . , vn conoce. Si se desprende de al menos P kilogramos lograra recuperar altura y llegar a tierra firme, y afortunadamente la suma de los pesos de los objetos supera holgadamente P. ¿Cu´al es el menor valor total de los objetos que necesita arrojar para llegar sano y salvo a la costa?
 
-_**minPerdida(P,pTotal,i)**_ = "Menor valor total de los **n** objetos con peso **p** y valor **v**  que necesita arrojar para tener peso total **pTotal** menor al peso soportable **P** y asi llegar sano y salvo a la costa"
+_**minPerdida(P,pTotal,i)**_ = "Menor valor total de los **1, ...,i** objetos con peso **p**1,...**p**i y valor **v**1,...**v**i  que se necesita arrojar para tener peso total **pTotal** menor al peso soportable **P** y asi llegar sano y salvo a la costa"
 
 Casos: 
 * Si no hay objetos (n=0) pero p_total es mayor que P (pTotal > P) entonces infinito (imposible llegar).
