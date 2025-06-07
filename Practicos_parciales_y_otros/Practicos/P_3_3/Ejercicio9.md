@@ -30,15 +30,11 @@ maxPuntaje(i,j) =
 \left\lbrace
 \begin{array}{ll}
 0 & \text{si } (i=0)\\
-
 \max\left(c_{i,j} + maxPuntaje(i-1,j),\ c_{i,j} + maxPuntaje(i-1,j+1)\right)) & \text{si } (j=1)\land(i>0) \\
-
 \max\left(c_{i,j} + maxPuntaje(i-1,j),\ c_{i,j} + maxPuntaje(i-1,j-1)\right)) & \text{si } (j=n)\land(i>0) \\
-
 \max\left(c_{i,j} + maxPuntaje(i-1,j),
          \max (c_{i,j} + maxPuntaje(i-1,j-1),
                c_{i,j} + maxPuntaje(i-1,j+1)\right)) & \text{si } ((j \gt 1 \land j \lt n)\land(i>0) 
-
 \end{array}
 \right.
 $$
