@@ -23,9 +23,7 @@ mejorCombinacion(lineaActual,i) =
 \left\lbrace
 \begin{array}{ll}
 0 & \text{si } (i=0)\\
-
 \min\left(S_{1,i} + mejorCombinacion(1,i-1),\ (S_{2,i}+t_{1,i}+ mejorCombinacion(2,i-1)\right)) & \text{si } (lineaActual = 1)\land(i>0) \\
-
 \min\left(S_{2,i} + mejorCombinacion(2,i-1),\ (S_{1,i}+t_{2,i}+ mejorCombinacion(1,i-1)\right)) & \text{si } (lineaActual = 2)\land(i>0)
 \end{array}
 \right.

@@ -27,13 +27,9 @@ maxValCargable(W1,W2,i) =
 \left\lbrace
 \begin{array}{ll}
 0 & \text{si } (i=0)\\
-
 maxValCargable(W1,W2,i-1) & \text{si } (w_i \gt W1) \land (w_i \gt W2)\\
-
 \max\left(maxValCargable(W1,W2,i-1),\ (v_i + maxValCargable(W1-w_i,W2,i-1)\right)) & \text{si } (w_i \leq W1)\land(w_i \gt W2) \\
-
 \max\left(maxValCargable(W1,W2,i-1),\ (v_i + maxValCargable(W1,W2-w_i,i-1)\right)) & \text{si } (w_i \gt W1)\land(w_i \leq W2) \\
-
 \max\left(maxValCargable(W1,W2,i-1), max(v_i + maxValCargable(W1-w_i,W2,i-1),v_i + maxValCargable(W1,W2-w_i,i-1)\right)) & \text{si } (w_i \leq W1)\land(w_i \leq W2) 
 \end{array}
 \right.
